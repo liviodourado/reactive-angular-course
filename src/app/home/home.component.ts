@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { CourseDialogComponent } from "../course-dialog/course-dialog.component";
 import { Course, sortCoursesBySeqNo } from "../model/course";
 import { CoursesService } from "../services/courses.service";
 
@@ -19,6 +17,10 @@ export class HomeComponent implements OnInit {
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit() {
+    this.reloadCourses();
+  }
+
+  reloadCourses() {
     const courses$ = this.coursesService
       .loadAllCourses()
       .pipe(map((courses) => courses.sort(sortCoursesBySeqNo)));
